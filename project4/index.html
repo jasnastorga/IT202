@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>App 10</title>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        var player = { x: 250, y: 460, color: "blue", shape: "circle" };
+        var harm = { x: 350, y: 20, color: "red", shape: "circle" };
+        var bene = { x: 100, y: 20, color: "green", shape: "circle" };
+
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+
+        requestAnimationFrame(draw);
+
+        function draw() {
+
+            // update character position properties
+            ctx.clearRect(0, 0, c.width, c.height);
+            harm.y++;
+            bene.y++;
+
+            if (areColliding(player, harm)) {
+                //  set properties
+            }
+            if (areColliding(player, 'bottom')) {
+                //  set properties
+            }
+            if (reachedEdge(harm, 'bottom')) {
+                // set y property
+                harm.y -= c.height;
+                bene.y -= c.height;
+
+                // 	console.log("drawCharacter", character);
+            }
+
+            drawCharacter(player);
+            drawCharacter(harm);
+            drawCharacter(bene);
+            requestAnimationFrame(draw);
+        }
+
+        function drawCharacter(character) {
+            // console.log("drawCharacter", character);
+
+            switch (character.shape) {
+                case 'circle':
+
+                    drawCircle(character.x, character.y, character.radius, character.color);
+
+                    break;
+                case 'square':
+
+
+                    // call function to draw square
+
+
+                    break;
+                case 'image':
+
+
+                    // call function to draw image
+
+                    break;
+                default:
+                    console.log('character.shape case fell through');
+            }
+        }
+
+        function drawCircle(x, y, radius, color) {
+
+            //   console.log();
+            ctx.beginPath();
+            ctx.arc(x, y, 40, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+
+        }
+
+        function areColliding(character1, character2) {
+            // use 2d collision for circles
+        }
+
+        function reachedEdge(character, edge) {
+            if (edge == 'bottom' && character.y > c.height)
+                return true;
+            else
+            if (edge == 'left' && character.y < 0)
+                return true;
+        }
+
+        $(document).ready(function() {
+            // arrow key keydown event handlers to change player position
+
+            $(document).keydown(function(evt) {
+                console.log(evt.keyCode);
+                if (evt.keyCode == 37)
+                    player.x -= 10;
+                else if (evt.keyCode == 39)
+                    player.x += 10;
+
+            });
+
+            requestAnimationFrame(draw);
+        });
+    </script>
+</body>
+
+</html>

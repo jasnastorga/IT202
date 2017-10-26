@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>App 11</title>
+    </head>
+    <body>
+        <label for="displayName">Display Name</label>
+        <input type="text" id="displayName">
+        <br>
+        <label for="sahreLocationData">Share Location Data?</label>
+        <input type="radio" name="shareLocationData" value="false">False
+        <input type="radio" name="shareLocationData" value="false">True
+        <br>
+        Last Accessed: <span id="lastAccessed"></span>
+        <br>
+        <button id="btnUpdateSettings">Update Settings</button>
+        
+        <!-- Include jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Include dexie.js -->
+        <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+        <script>
+            var db = new Dexie("MyDB");
+            db.version(1).stores({settings: "name,value"});
+            db.on("populate", function() {
+                db.settings.add({name: "displayName", value: "Display Name"});
+                db.settings.add({name: "shareLocationData", value: false});
+                db.settings.add({name: "lastAccessed", value: new Date()});
+            })
+            db.open();
+            db.settings.where("name").equals("lastAccessed").modify({value: new Date()});
+            $(document).ready(function(){
+                db.settings.each (function (setting) {
+                    
+                    if(setting.name == "shareLocationData"){
+                        
+                    $("input[name=" + setting.name + "][value=" +setting.value +"]").prop('checked',true);    
+                    }
+                    
+                    else if (setting.name == "displayName"){
+                        $("#"+setting.name).val(setting.value);
+                    }
+                    else {
+                        $("#"+setting.name).text(setting.value);
+                    }
+                });
+                
+                $("#btnUpdateSettings").on("click", function(){
+                    var displayName = $("#displayName").val();
+                    var shareLocationData = $("input[name=shareLocationData]:checked").val();
+                    
+                    db.settings.where("name").equals("displayName").modify({value: displayName});
+                    db.settings.where("name").equals("shareLocationData").modify({value: shareLocationData});
+                    
+                });
+                
+            })
+        </script>        
+        
+    </body>
+
+</html>
