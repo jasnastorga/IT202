@@ -1,34 +1,70 @@
 <html>
+<head>
+    <!--jquery Library-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <title>Lab 3 - Data App </title>
+    <!--Bootstrap,Popper.js Library-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
+    <!-- title of lab-->
+    <title>Lab 3 - Data App </title>
+
+    <style>
+    </style>
+    
+</head>
+
+<body>
+
+<div class="panel panel-default,hidden">
+    
+    <div class="panel-heading, hidden">
         
-        <style> 
-
-
-
-        </style>
-    </head>
-    
-    <body>
+        <h3 class="panel-title, hidden">Panel title</h3>
         
+    </div>
     
-        <script>
+    <div class="panel-body, hidden">
+        
+        Panel content
+    </div>
+    
+</div>
+        
+
+    <script>
+        //creating a variable, endpoint, and setting it to the API endpoint
+        //adding $limit to the end of the URL will limit items to value after '=' sign.
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=10";
-        $.get(endpoint, function(response){
+        
+        //----------------------------------------------------------------------
+        //jquery command .get function.
+        //the .get() command takes in two parameters
+        $.get(endpoint, function(response) {
             
+            //this is the content of the .get command
+            //logging in 'response' into the console
             console.log(response);
             
-            
-        }
-        );
+            //------------------------------------------------------------------
+            //each() command that iterates through the response data
+            $.each(response, function(index,value) {
+                
+                //logging in the index number and the value(ward)
+                console.log(index,value.ward);
+                
+                //attaching the 'value.' the the body
+                $("body").append("<br><h2>" + value.street_address + "</br></h2>");
+                $("body").append("<p1><br>" + value.service_request_number + "</p1></br>");
+                $("body").append("<p2><br>" + value.status + "</p2></br>");
+            });
+            //------------------------------------------------------------------
         
-        
-        
-        
-        
-        
-        </script>
-    </body>
+        });
+    </script>
+    
+    
+</body>
+
 </html>
