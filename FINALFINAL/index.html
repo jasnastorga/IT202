@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <title>Project</title>
+    
+    <!--2nd bootsrap library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    
+    <!-- libraries jquery, bootstrap-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <!--Google font link-->
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+      
+      
+    <style>
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .element-card {
+        width: 16em;
+        margin: 16px;
+      }
+
+      .element-card > .mdc-card__media {
+        height: 9em;
+      }
+
+      #demo-absolute-fab {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+      
+<div class="mdc-card">
+  <section class="mdc-card__primary">
+    <h1 class="mdc-card__title mdc-card__title--large"></h1>
+    
+    <div id="addresses" class="col-md-12"></div>
+    
+  </section>
+  <section class="mdc-card__supporting-text">
+  
+  </section>
+  <section class="mdc-card__actions">
+    <button class="mdc-button mdc-button--compact mdc-card__action">Location on Map</button>
+    <button class="mdc-button mdc-button--compact mdc-card__action">Grafitti Location</button>
+  </section>
+</div>
+
+ <script>
+
+        $(document).ready(function(){
+          
+        //creating a variable, endpoint, and setting it to the API endpoint
+        //adding $limit to the end of the URL will limit items to value after '=' sign.
+        var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=50";
+        //----------------------------------------------------------------------
+        //jquery command .get function.
+        //the .get() command takes in two parameters
+        $.get(endpoint, function(response) {
+            
+            //this is the content of the .get command
+            //logging in 'response' into the console
+            console.log(response);
+            
+            //------------------------------------------------------------------
+            //each() command that iterates through the response data
+            $.each(response, function(index,value) {
+                
+           $("#addresses").append("<div class='card'><div class='card-body'><h4 class='card-title'>"+value.street_address +"</h4><p class='card-text'></p><button onClick='alert("+value.where_is_the_graffiti_located_+")'  class='btn btn-primary'>Grafitti Location</button></div>")
+            
+            });
+            
+        });
+          
+    });
+ 
+        
+        
+    </script>
+
+    </body>
+    </html>

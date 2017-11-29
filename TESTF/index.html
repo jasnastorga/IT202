@@ -1,0 +1,72 @@
+<html>
+<head>
+    <!--jquery Library-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Bootstrap,Popper.js Library-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
+    <!-- title of lab-->
+    <title>FINAL TEST1 </title>
+
+    <style>
+    </style>
+    
+</head>
+
+<body>
+
+<div class="panel panel-default,hidden">
+    
+    <div class="panel-heading, hidden">
+        
+        <h3 class="panel-title, hidden">Grafitti Requests</h3>
+        
+    </div>
+    
+    <div class="panel-body, hidden">
+        
+
+    </div>
+    
+</div>
+        
+
+    <script>
+        //creating a variable, endpoint, and setting it to the API endpoint
+        //adding $limit to the end of the URL will limit items to value after '=' sign.
+        var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=50";
+        
+        //----------------------------------------------------------------------
+        //jquery command .get function.
+        //the .get() command takes in two parameters
+        $.get(endpoint, function(response) {
+            
+            //this is the content of the .get command
+            //logging in 'response' into the console
+            console.log(response);
+            
+            //------------------------------------------------------------------
+            //each() command that iterates through the response data
+            $.each(response, function(index,value) {
+                
+                //logging in the index number and the value(ward)
+                console.log(index,value.ward);
+                
+              
+            
+            $("body").append("<h3>" + value.street_address + "</h3>");
+            $("body").append("<h4>" + value.where_is_the_graffiti_located_ + "</h4>");
+            
+
+            
+            });
+            //------------------------------------------------------------------
+        
+        });
+    </script>
+    
+    
+</body>
+
+</html>
