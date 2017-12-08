@@ -1,0 +1,36 @@
+<html>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    
+
+    <textarena id="input" placeholder="Enter text to translate"></textarena>
+    <button id="btnTranslate">Translate</button>
+    <div is="results"></div>
+    <button
+
+    <script>
+    
+        var baseUrl = "https://translation.googleapis.com/language/translate/v2?q=hello%20world&target=fr&format=text&source=en&key=AIzaSyDFE9BAasevH_Kg_JXbC-G2TI2yFkAlw9I";
+
+        $(function() {
+                    $("#btnTranslate").on("click", function() {
+                            $.get(baseUrl + $("#input").val(), function(response) {
+                                    $.("#results").text(response.data.translation[0].translatedtext);
+                                })
+                        })
+                        
+                        $("#sayIt").on("click", function(){
+                            var msg = new SpeechSynthesisisUtterance($("#result").text());
+                            msg.lg='ja';
+                            
+                        });
+        });
+    </script>
+</body>
+
+</html>
