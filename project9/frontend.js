@@ -26,7 +26,8 @@ $(function () {
   }
 
   // open connection
-  var connection = new WebSocket('wss:https://project10-jasonastorga.c9users.io');
+  //this is the node.js server URL lited when running from the node.js workspace
+  var connection = new WebSocket('wss:project10-jasonastorga.c9users.io');
 
   connection.onopen = function () {
     // first we want users to enter their names
